@@ -91,7 +91,7 @@ arcade.draw_arc_filled(center_x=316, center_y=297, width=50, height=36.7, color=
 
 
 # palo de paraguas de puesto de socorrista
-arcade.draw_line(start_x=190, start_y=210, end_x=190, end_y=320, color=arcade.color.BROWN, line_width=10)
+arcade.draw_line(start_x=190, start_y=215, end_x=190, end_y=320, color=arcade.color.BROWN, line_width=10)
 
 # Left-top window
 # arcade.draw_rectangle_filled(130, 440, 30, 40, arcade.color.BONE)
