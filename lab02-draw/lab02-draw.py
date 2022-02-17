@@ -42,7 +42,7 @@ arcade.draw_lrtb_rectangle_filled(0, 800, 310, 170, arcade.color.SEA_BLUE)
 arcade.draw_rectangle_filled(190, 130, 70, 170, arcade.color.DARK_BROWN)
 
 # Draw 2nd level door ***************
-arcade.draw_rectangle_outline(190, 255, 165, 80, arcade.color.DARK_BROWN, 5)
+#arcade.draw_rectangle_outline(190, 255, 165, 80, arcade.color.DARK_BROWN, 5)
 
 # El suelo del puesto de socorrista
 arcade.draw_rectangle_filled(190, 210, 180, 15, arcade.color.DARK_BROWN) # Se dibuja antes para que sea más fácil implementar las escaleras
