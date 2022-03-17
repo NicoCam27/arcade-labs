@@ -4,9 +4,11 @@ import random
 import arcade
 
 # --- Constants ---
-SPRITE_SCALING_PLAYER = 0.5
-SPRITE_SCALING_COIN = 0.2
-COIN_COUNT = 50
+SPRITE_SCALING_PLAYER = 0.35
+SPRITE_SCALING_GOOD_COIN = 0.05
+SPRITE_SCALING_BAD_COIN = 0.02
+GOOD_COIN_COUNT = 50
+BAD_COIN_COUNT = 15
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -22,7 +24,8 @@ class MyGame(arcade.Window):
 
         # Variables that will hold sprite lists
         self.player_list = None
-        self.coin_list = None
+        self.good_sprite_list = None
+        self.bad_sprite_list = None
 
         # Set up the player info
         self.player_sprite = None
@@ -38,7 +41,8 @@ class MyGame(arcade.Window):
 
         # Sprite lists
         self.player_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
+        self.good_sprite_list = arcade.SpriteList()
+        self.bad_sprite_list = arcade.SpriteList()
 
         # Score
         self.score = 0
@@ -51,28 +55,53 @@ class MyGame(arcade.Window):
         self.player_list.append(self.player_sprite)
 
         # Create the coins
-        for i in range(COIN_COUNT):
+        for i in range(GOOD_COIN_COUNT):
 
             # Create the coin instance
             # Coin image from kenney.nl
-            coin = arcade.Sprite(":resources:images/items/coinGold.png", SPRITE_SCALING_COIN)
+            good_coin = arcade.Sprite("vinyl.png", SPRITE_SCALING_GOOD_COIN)
 
             # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            good_coin.center_x = random.randrange(SCREEN_WIDTH)
+            good_coin.center_y = random.randrange(SCREEN_HEIGHT)
 
             # Add the coin to the lists
-            self.coin_list.append(coin)
+            self.good_sprite_list.append(good_coin)
+
+        # Create the bad coins
+        for i in range(BAD_COIN_COUNT):
+
+            # Create the coin instance
+            # Coin image from kenney.nl
+            bad_coin = arcade.Sprite("red_x.png", SPRITE_SCALING_BAD_COIN)
+
+            # Position the coin
+            bad_coin.center_x = random.randrange(SCREEN_WIDTH)
+            bad_coin.center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Add the coin to the lists
+            self.bad_sprite_list.append(bad_coin)
+            #hit_list = arcade.check_for_collision_with_list(self.bad_sprite_list, self.good_sprite_list)
+            #for bad_coin in hit_list:
+            #    bad_coin.remove_from_sprite_lists()
+            #    self.score += 1
+            #    bad_coin.center_x = random.randrange(SCREEN_WIDTH)
+            #    bad_coin.center_y = random.randrange(SCREEN_HEIGHT)
 
     def on_draw(self):
         """ Draw everything """
         arcade.start_render()
-        self.coin_list.draw()
+        self.good_sprite_list.draw()
+        self.bad_sprite_list.draw()
         self.player_list.draw()
 
         # Put the text on the screen.
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
+        if len(self.good_sprite_list) == 0:
+            self.set_mouse_visible(True)
+            arcade.draw_rectangle_filled(400,300,800,600,arcade.color.AMAZON)
+            arcade.draw_text("Bien hecho mi pana, tu score es: " + str(self.score), 190, 300, arcade.color.WHITE, 14)
 
     def on_mouse_motion(self, x, y, dx, dy):
         """ Handle Mouse Motion """
@@ -86,17 +115,27 @@ class MyGame(arcade.Window):
 
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
-        self.coin_list.update()
+        self.good_sprite_list.update()
+        self.bad_sprite_list.update()
 
         # Generate a list of all sprites that collided with the player.
-        coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
-                                                              self.coin_list)
+        #coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+        #                                                      self.coin_list)
 
         # Loop through each colliding sprite, remove it, and add to the score.
-        for coin in coins_hit_list:
-            coin.remove_from_sprite_lists()
+        #for coin in coins_hit_list:
+        #    coin.remove_from_sprite_lists()
+        #    self.score += 1
+        hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.good_sprite_list)
+        for good_sprite in hit_list:
+            good_sprite.remove_from_sprite_lists()
             self.score += 1
-
+        hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.bad_sprite_list)
+        for bad_sprite in hit_list:
+            bad_sprite.remove_from_sprite_lists()
+            self.score -= 1
+            bruh_effect = arcade.load_sound("bruh.mp3")
+            arcade.play_sound(bruh_effect)
 
 def main():
     """ Main method """
