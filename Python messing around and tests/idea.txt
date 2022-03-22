@@ -1,0 +1,1 @@
+se puede hacer una mecánica de parar el tiempo bajando el valor de damping momentariamente de ciertas cosas.

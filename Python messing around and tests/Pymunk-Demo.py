@@ -196,8 +196,8 @@ class MyWindow(arcade.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
         """ Called whenever the mouse button is clicked. """
-
-        bullet = arcade.SpriteSolidColor(5, 5, arcade.color.RED)
+        bullet = arcade.Sprite("bullet.png", 0.04)
+        # Código Original # bullet = arcade.SpriteSolidColor(5, 5, arcade.color.RED)
         self.bullet_list.append(bullet)
 
         # Position the bullet at the player's current location
@@ -249,7 +249,7 @@ class MyWindow(arcade.Window):
         elif key == arcade.key.RIGHT:
             self.right_pressed = True
         elif key == arcade.key.SPACE:
-            bullet = arcade.SpriteSolidColor(9, 9, arcade.color.RED)
+            bullet = arcade.Sprite("bubble.png", 0.1)
             bullet.position = self.player_sprite.position
             bullet.center_x += 30
             self.bullet_list.append(bullet)
