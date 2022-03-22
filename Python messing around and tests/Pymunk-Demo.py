@@ -7,6 +7,11 @@ import math
 import random
 import arcade
 from typing import Optional
+import Interval
+import time
+import threading
+
+import pyglet.libs.win32.constants
 from arcade.pymunk_physics_engine import PymunkPhysicsEngine
 
 SCREEN_TITLE = "PyMunk Top-Down"
@@ -133,9 +138,21 @@ class MyWindow(arcade.Window):
             """ Called for bullet/rock collision """
             bullet_shape = arbiter.shapes[0]
             bullet_sprite = self.physics_engine.get_sprite_for_shape(bullet_shape)
+            position_in_list = list(sprite_b.position)
             bullet_sprite.remove_from_sprite_lists()
-            #           Añadir codigo a ver si se puede hacer que la roca se desaparezca al ser disparada           #
+            sprite_b.remove_from_sprite_lists()
+            item = arcade.Sprite("explosion.png",0.5)
+            item.center_x = position_in_list[0]
+            item.center_y = position_in_list[1]
+            self.rock_list.append(item)
+#            inter = setInterval(0.2, Interval.action())
+#            t = threading.Timer(1.2, inter.cancel)
+#            t.start()
+#            print (t)
+#            if (t==1.2):
+#                    item.remove_from_sprite_lists()
             print("Rock")
+        # def collectible_hit_handler
 
         def wall_hit_handler(sprite_a, sprite_b, arbiter, space, data):
             """ Called for bullet/rock collision """
@@ -306,6 +323,26 @@ class MyWindow(arcade.Window):
         self.gem_list.draw()
         self.player_list.draw()
 
+def action():
+    print (float(time.time()-StartTime))
+
+
+#class setInterval:
+#    def __init__(self,interval,action) :
+#        self.interval=interval
+#        self.action=action
+#        self.stopEvent=threading.Event()
+#        thread=threading.Thread(target=self.__setInterval)
+#        thread.start()
+#
+#    def __setInterval(self) :
+#        nextTime=time.time()+self.interval
+#        while not self.stopEvent.wait(nextTime-time.time()) :
+#            nextTime+=self.interval
+#            self.action()
+
+#   def cancel(self) :
+#       self.stopEvent.set()
 
 def main():
     """ Main method """
