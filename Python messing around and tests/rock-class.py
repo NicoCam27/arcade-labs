@@ -4,4 +4,5 @@ import arcade
 from typing import Optional
 from arcade.pymunk_physics_engine import PymunkPhysicsEngine
 
-class rock(hp, size):
+#class rock(hp, size):
+#
