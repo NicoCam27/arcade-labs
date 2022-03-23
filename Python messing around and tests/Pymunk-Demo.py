@@ -257,13 +257,13 @@ class MyWindow(arcade.Window):
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
-        if key == arcade.key.UP:
+        if key == arcade.key.W:
             self.up_pressed = True
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.down_pressed = True
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.A:
             self.left_pressed = True
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.right_pressed = True
         elif key == arcade.key.SPACE:
             bullet = arcade.Sprite("bubble.png", 0.1)
@@ -281,13 +281,13 @@ class MyWindow(arcade.Window):
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
 
-        if key == arcade.key.UP:
+        if key == arcade.key.W:
             self.up_pressed = False
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.down_pressed = False
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.A:
             self.left_pressed = False
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.right_pressed = False
 
     def on_update(self, delta_time):
