@@ -1,3 +1,12 @@
+"""
+Scroll around a large screen.
+
+Artwork from https://kenney.nl
+
+If Python and Arcade are installed, this example can be run from the command line with:
+python -m arcade.examples.sprite_move_scrolling
+"""
+
 import random
 import arcade
 from pyglet.math import Vec2
@@ -10,10 +19,10 @@ SCREEN_TITLE = "Sprite Move with Scrolling Screen Example"
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
-VIEWPORT_MARGIN = 300
+VIEWPORT_MARGIN = 220
 
 # How fast the camera pans to the player. 1.0 is instant.
-CAMERA_SPEED = 0.04
+CAMERA_SPEED = 0.03
 
 # How fast the character moves
 PLAYER_MOVEMENT_SPEED = 7
