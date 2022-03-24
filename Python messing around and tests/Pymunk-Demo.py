@@ -327,22 +327,9 @@ def action():
     print (float(time.time()-StartTime))
 
 
-#class setInterval:
-#    def __init__(self,interval,action) :
-#        self.interval=interval
-#        self.action=action
-#        self.stopEvent=threading.Event()
-#        thread=threading.Thread(target=self.__setInterval)
-#        thread.start()
-#
-#    def __setInterval(self) :
-#        nextTime=time.time()+self.interval
-#        while not self.stopEvent.wait(nextTime-time.time()) :
-#            nextTime+=self.interval
-#            self.action()
-
-#   def cancel(self) :
-#       self.stopEvent.set()
+# Para contar el tiempo o implementar un timer es preferible poner una variable en el método on_update que se añade a si misma a delta time
+# Por ejemplo:
+# self.time_taken += delta_time
 
 def main():
     """ Main method """
