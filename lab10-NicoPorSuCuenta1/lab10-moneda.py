@@ -67,7 +67,7 @@ class MyGame(arcade.Window):
         self.score = 0
 
         # Character image from kenney.nl
-        self.player_sprite = arcade.Sprite("character.png", SPRITE_SCALING)
+        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", SPRITE_SCALING)
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 70
         self.player_list.append(self.player_sprite)
@@ -76,7 +76,7 @@ class MyGame(arcade.Window):
 
             # Create the coin instance
             # Coin image from kenney.nl
-            coin = Coin("coin_01.png", SPRITE_SCALING / 3)
+            coin = Coin(":resources:images/items/coinGold.png", SPRITE_SCALING / 3)
 
             # Position the center of the circle the coin will orbit
             coin.circle_center_x = random.randrange(SCREEN_WIDTH)
