@@ -149,6 +149,8 @@ class PlayerCharacter(arcade.Sprite):
             return
 
 
+        ### En nuestro juego necesitaremos 4 "if" para averiguar cual era la direccion que miraba el personaje antes de que paró su movimiento
+
 
         # Walking animation
 
