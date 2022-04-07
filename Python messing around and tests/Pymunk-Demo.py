@@ -37,6 +37,10 @@ class MyWindow(arcade.Window):
 
         arcade.set_background_color(arcade.color.AMAZON)
 
+        self.explosion_sound = arcade.load_sound("a.wav")
+        self.explosion_sound_player = None
+        self.wall_explosion_sound = arcade.load_sound("uwu.wav")
+        self.wall_explosion_sound_player = None
         self.player_list = None
         self.wall_list = None
         self.bullet_list = None
@@ -141,10 +145,12 @@ class MyWindow(arcade.Window):
             position_in_list = list(sprite_b.position)
             bullet_sprite.remove_from_sprite_lists()
             sprite_b.remove_from_sprite_lists()
-            item = arcade.Sprite("explosion.png",0.5)
-            item.center_x = position_in_list[0]
-            item.center_y = position_in_list[1]
-            self.rock_list.append(item)
+            #item = arcade.Sprite("explosion.png",0.5)
+            #item.center_x = position_in_list[0]
+            #item.center_y = position_in_list[1]
+            #self.rock_list.append(item)
+            if not self.explosion_sound_player or not self.explosion_sound_player.playing:
+                self.explosion_sound_player = arcade.play_sound(self.explosion_sound)
 #            inter = setInterval(0.2, Interval.action())
 #            t = threading.Timer(1.2, inter.cancel)
 #            t.start()
@@ -159,6 +165,8 @@ class MyWindow(arcade.Window):
             bullet_shape = arbiter.shapes[0]
             bullet_sprite = self.physics_engine.get_sprite_for_shape(bullet_shape)
             bullet_sprite.remove_from_sprite_lists()
+            if not self.wall_explosion_sound_player or not self.wall_explosion_sound_player.playing:
+                self.wall_explosion_sound_player = arcade.play_sound(self.wall_explosion_sound)
             print("Wall")
 
         self.physics_engine.add_collision_handler("bullet", "rock", post_handler=rock_hit_handler)
