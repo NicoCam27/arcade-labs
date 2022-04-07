@@ -7,9 +7,7 @@ import math
 import random
 import arcade
 from typing import Optional
-import Interval
 import time
-import threading
 
 import pyglet.libs.win32.constants
 from arcade.pymunk_physics_engine import PymunkPhysicsEngine
