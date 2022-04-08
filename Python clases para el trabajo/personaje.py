@@ -21,20 +21,10 @@
 
 import arcade
 
-SPRITE_SCALING_PLAYER = 0.5
-MOVEMENT_SPEED = 5
-
-SPRITE_IMAGE_SIZE = 128
-SPRITE_SIZE = int(SPRITE_IMAGE_SIZE * SPRITE_SCALING_PLAYER)
-
-SCREEN_WIDTH = SPRITE_SIZE * 15
-SCREEN_HEIGHT = SPRITE_SIZE * 10
-
-
 
 class Protagonista(arcade.Sprite):
 
-    def __init__(self, position_x, position_y, change_x, change_y, sprite, size):
+    def __init__(self, position_x, position_y, change_x, change_y, sprite, size, velocidad):
         super().__init__()
         self.position_x = position_x
         self.position_y = position_y
@@ -44,15 +34,16 @@ class Protagonista(arcade.Sprite):
         self.player_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
         self.hp = None
+        self.velocidad_de_movimiento = velocidad
 
     def setup(self):
         self.player_sprite.center_x = self.position_x
         self.player_sprite.center_y = self.position_y
 
-    def get_change_x(self,x):
+    def get_change_x(self, x):
         return self.change_x
 
-    def set_change_x(self,x):
+    def set_change_x(self, x):
         self.change_x = x
 
     def get_change_y(self, y):
@@ -66,6 +57,12 @@ class Protagonista(arcade.Sprite):
 
     def set_hp(self, new_hp):
         self.hp = new_hp
+
+    def get_velocidad_de_movimiento(self):
+        return self.velocidad_de_movimiento
+
+    def set_velocidad_de_movimiento(self, velocidad_nueva):
+        self.velocidad_de_movimiento = velocidad_nueva
 
     def draw(self):
         """ Draw everything """
