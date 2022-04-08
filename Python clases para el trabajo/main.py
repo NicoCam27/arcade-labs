@@ -41,22 +41,22 @@ class MyWindow(arcade.Window):
         velocidad_de_movimiento = self.personaje_principal.get_velocidad_de_movimiento()
         if key == arcade.key.LSHIFT:
             self.personaje_principal.set_velocidad_de_movimiento(self.personaje_principal.get_velocidad_de_movimiento() * 2)
-        if key == arcade.key.LEFT:
+        if key == arcade.key.A:
             self.personaje_principal.set_change_x(-velocidad_de_movimiento)
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.personaje_principal.set_change_x(velocidad_de_movimiento)
-        elif key == arcade.key.UP:
+        elif key == arcade.key.W:
             self.personaje_principal.set_change_y(velocidad_de_movimiento)
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.personaje_principal.set_change_y(-velocidad_de_movimiento)
 
     def on_key_release(self, key, modifiers):
         """ Called whenever a user releases a key. """
         if key == arcade.key.LSHIFT:
             self.personaje_principal.set_velocidad_de_movimiento(self.personaje_principal.get_velocidad_de_movimiento() / 2)
-        if key == arcade.key.LEFT or key == arcade.key.RIGHT:
+        if key == arcade.key.A or key == arcade.key.D:
             self.personaje_principal.change_x = 0
-        elif key == arcade.key.UP or key == arcade.key.DOWN:
+        elif key == arcade.key.W or key == arcade.key.S:
             self.personaje_principal.change_y = 0
 
 
