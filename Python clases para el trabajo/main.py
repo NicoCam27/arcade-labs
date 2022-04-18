@@ -1,6 +1,6 @@
 
 import arcade
-import personaje # Aquí se importa la clase de personaje
+import protagonista # Aquí se importa la clase de personaje
 
 SCREEN_TITLE = "Juego de equipo Durum studio"
 SPRITE_SCALING_PLAYER = 0.5
@@ -21,11 +21,35 @@ class MyWindow(arcade.Window):
         super().__init__(width, height, title)
         self.set_mouse_visible(False)
         arcade.set_background_color(arcade.color.BLACK)
-        self.personaje_principal = personaje.Protagonista(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0,0, ":resources:images/animated_characters/female_person/femalePerson_idle.png", SPRITE_SCALING_PLAYER, MOVEMENT_SPEED)
+        self.personaje_principal = protagonista.Protagonista(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0,0, ":resources:images/animated_characters/female_person/femalePerson_idle.png", SPRITE_SCALING_PLAYER, MOVEMENT_SPEED)
+
+        # Track the current state of what key is pressed
+        self.shift_pressed = False
+        self.left_pressed = False
+        self.right_pressed = False
+        self.up_pressed = False
+        self.down_pressed = False
 
     def setup(self):
         """ Set up everything """
         self.personaje_principal.setup()
+
+    def update_player_speed(self):
+
+        # Calculate speed based on the keys pressed
+        self.personaje_principal.set_change_x(0)
+        self.personaje_principal.set_change_y(0)
+
+        velocidad_de_movimiento = self.personaje_principal.get_velocidad_de_movimiento()
+
+        if self.up_pressed and not self.down_pressed:
+            self.personaje_principal.set_change_y(velocidad_de_movimiento)
+        elif self.down_pressed and not self.up_pressed:
+            self.personaje_principal.set_change_y(-velocidad_de_movimiento)
+        if self.left_pressed and not self.right_pressed:
+            self.personaje_principal.set_change_x(-velocidad_de_movimiento)
+        elif self.right_pressed and not self.left_pressed:
+            self.personaje_principal.set_change_x(velocidad_de_movimiento)
 
     def on_draw(self):
         """ Draw everything """
@@ -40,24 +64,38 @@ class MyWindow(arcade.Window):
         """ Called whenever the user presses a key. """
         velocidad_de_movimiento = self.personaje_principal.get_velocidad_de_movimiento()
         if key == arcade.key.LSHIFT:
-            self.personaje_principal.set_velocidad_de_movimiento(self.personaje_principal.get_velocidad_de_movimiento() * 2)
+            self.shift_pressed = True
+            self.personaje_principal.cambiar_velocidad_de_movimiento(2, "*")
         if key == arcade.key.A:
-            self.personaje_principal.set_change_x(-velocidad_de_movimiento)
+            self.left_pressed = True
+            self.update_player_speed()
         elif key == arcade.key.D:
-            self.personaje_principal.set_change_x(velocidad_de_movimiento)
+            self.right_pressed = True
+            self.update_player_speed()
         elif key == arcade.key.W:
-            self.personaje_principal.set_change_y(velocidad_de_movimiento)
+            self.up_pressed = True
+            self.update_player_speed()
         elif key == arcade.key.S:
-            self.personaje_principal.set_change_y(-velocidad_de_movimiento)
+            self.down_pressed = True
+            self.update_player_speed()
 
     def on_key_release(self, key, modifiers):
         """ Called whenever a user releases a key. """
         if key == arcade.key.LSHIFT:
-            self.personaje_principal.set_velocidad_de_movimiento(self.personaje_principal.get_velocidad_de_movimiento() / 2)
-        if key == arcade.key.A or key == arcade.key.D:
-            self.personaje_principal.change_x = 0
-        elif key == arcade.key.W or key == arcade.key.S:
-            self.personaje_principal.change_y = 0
+            self.shift_pressed = False
+            self.personaje_principal.cambiar_velocidad_de_movimiento(2, "/")
+        if key == arcade.key.W:
+            self.up_pressed = False
+            self.update_player_speed()
+        elif key == arcade.key.S:
+            self.down_pressed = False
+            self.update_player_speed()
+        elif key == arcade.key.A:
+            self.left_pressed = False
+            self.update_player_speed()
+        elif key == arcade.key.D:
+            self.right_pressed = False
+            self.update_player_speed()
 
 
 def main():

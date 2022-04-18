@@ -64,6 +64,13 @@ class Protagonista(arcade.Sprite):
     def set_velocidad_de_movimiento(self, velocidad_nueva):
         self.velocidad_de_movimiento = velocidad_nueva
 
+    def cambiar_velocidad_de_movimiento(self,multiplicador,signo):
+        if signo == "*":
+            self.set_velocidad_de_movimiento(self.get_velocidad_de_movimiento() * multiplicador)
+        if signo == "/":
+            self.set_velocidad_de_movimiento(self.get_velocidad_de_movimiento() / multiplicador)
+
+
     def draw(self):
         """ Draw everything """
         self.player_list.draw()
